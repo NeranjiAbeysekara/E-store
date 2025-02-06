@@ -15,6 +15,16 @@ import Kids from './pages/Kids';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
+import AdminLogin from './pages/AdminPages/AdminLogin';
+import AdminDash from './pages/AdminPages/AdminDash';
+import ItemDetails from './pages/ItemDetails';
+import CheckoutPage from "./pages/CheckoutPage";
+
+const PrivateRoute = ({ children }) => {
+  const role = localStorage.getItem("role");
+  return role === "admin" ? children : <Navigate to="/" />;
+};
+
 function App() {
   return (
     <div>
@@ -36,6 +46,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin/login" element={<AdminLogin/>} />
+        <Route path="/admin/dashboard" element={<AdminDash/>} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
      <Footer/>
       </BrowserRouter>

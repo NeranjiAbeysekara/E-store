@@ -1,10 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const mongoose = require('mongoose');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -36,11 +36,13 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isVerified: { type: Boolean, default: false },
+  isAdmin: { type: Boolean, default: false }, // Admin flag
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });
 
 const User = mongoose.model('User', userSchema);
+
 
 // Signup Route with Email Verification
 app.post('/api/auth/signup', async (req, res) => {
@@ -155,7 +157,7 @@ app.get('/api/auth/reset-password', async (req, res) => {
   }
 });
 
-// Login Route
+// Regular User Login Route
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -176,9 +178,41 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    // Generate a JWT token
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    // Generate a JWT token for the user
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: '1h' });
 
+    // Respond with the token
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ message: 'Login failed', error: error.message });
+  }
+});
+
+// Admin Login Route
+app.post('/api/auth/admin-login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid email or password' });
+    }
+
+    // Check if the user is an admin
+    if (!user.isAdmin) {
+      return res.status(400).json({ message: 'Not authorized' });
+    }
+
+    // Compare the password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate a JWT token for the admin
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: '1h' });
+
+    // Respond with the token
     res.json({ token });
   } catch (error) {
     res.status(500).json({ message: 'Login failed', error: error.message });
@@ -197,8 +231,6 @@ mongoose.connect(process.env.MONGO_URI, {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-
 
 
 

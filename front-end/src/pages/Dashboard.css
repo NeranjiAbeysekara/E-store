@@ -1,0 +1,70 @@
+/* DashboardPage.css */
+
+.dashboard-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-content {
+    width: 80%;
+    max-width: 1200px;
+  }
+  
+  .profile-info,
+  .orders,
+  .cart {
+    margin-bottom: 30px;
+  }
+  
+  .profile-info h3,
+  .orders h3,
+  .cart h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .orders ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .order-item {
+    background-color: #f8f8f8;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cart p {
+    font-size: 1.2rem;
+    color: #888;
+  }
+  
+  .shop-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .shop-btn:hover {
+    background-color: #0056b3;
+  }
+  
