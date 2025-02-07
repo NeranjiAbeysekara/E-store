@@ -1,63 +1,41 @@
-import React from "react";
-import "./ShopPage.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './ShopPage.css';
 
-const categories = ["Men", "Women", "Kids", "Accessories", "Footwear"];
-const newArrivals = [
-  {
-    id: 1,
-    name: "Stylish Jacket",
-    price: "$49.99",
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 2,
-    name: "Classic Sneakers",
-    price: "$39.99",
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 3,
-    name: "Elegant Handbag",
-    price: "$59.99",
-    image: "https://via.placeholder.com/150",
-  },
-];
+const Shop = () => {
+  const categories = [
+    { id: 1, name: 'Men', img: 'https://via.placeholder.com/400x300', path: '/shop/men' },
+    { id: 2, name: 'Women', img: 'https://via.placeholder.com/400x300', path: '/shop/women' },
+    { id: 3, name: 'Kids', img: 'https://via.placeholder.com/400x300', path: '/shop/kids' },
+  ];
 
-const ShopPage = () => {
   return (
-    <div className="shop-container">
-      {/* Categories Section */}
-      <div className="categories-section">
-        <h2>Categories</h2>
-        <div className="categories-list">
-          {categories.map((category, index) => (
-            <button key={index} className="category-btn">
-              {category}
-            </button>
-          ))}
-        </div>
+    <div className="shop-page">
+      <h2 className="page-title">Shop by Category</h2>
+      <div className="category-grid">
+        {categories.map((category) => (
+          <Link key={category.id} to={category.path} className="category-card">
+            <img src={category.img} alt={category.name} className="category-img" />
+            <div className="category-name">{category.name}</div>
+          </Link>
+        ))}
       </div>
 
-      {/* New Arrivals Section */}
-      <div className="new-arrivals-section">
-        <h2>New Arrivals</h2>
-        <div className="product-list">
-          {newArrivals.map((product) => (
-            <div key={product.id} className="product-card">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="product-image"
-              />
-              <h3>{product.name}</h3>
-              <p>{product.price}</p>
-              <button className="add-to-cart">Add to Cart</button>
-            </div>
-          ))}
+      <h3 className="section-title">New Arrivals</h3>
+      <div className="new-arrivals">
+        {/* Example product - Replace with dynamic data */}
+        <div className="product-card">
+          <img src="https://via.placeholder.com/300x300" alt="New Arrival" className="product-img" />
+          <div className="product-info">
+            <h3 className="product-name">New Arrival Product</h3>
+            <p className="product-price">$50</p>
+            <button className="add-to-cart-btn">Add to Cart</button>
+          </div>
         </div>
+        {/* Add more products dynamically */}
       </div>
     </div>
   );
 };
 
-export default ShopPage;
+export default Shop;

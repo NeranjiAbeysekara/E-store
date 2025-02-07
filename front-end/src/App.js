@@ -19,6 +19,8 @@ import AdminLogin from './pages/AdminPages/AdminLogin';
 import AdminDash from './pages/AdminPages/AdminDash';
 import ItemDetails from './pages/ItemDetails';
 import CheckoutPage from "./pages/CheckoutPage";
+import AddAdmin from "./pages/AdminPages/AddAdmin";
+import AddItem from "./pages/AdminPages/AddItem";
 
 const PrivateRoute = ({ children }) => {
   const role = localStorage.getItem("role");
@@ -49,6 +51,8 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin/>} />
         <Route path="/admin/dashboard" element={<AdminDash/>} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/add-admin" element={<AddAdmin />} />
+        <Route path="/add-item" element={<AddItem />} />
       </Routes>
      <Footer/>
       </BrowserRouter>

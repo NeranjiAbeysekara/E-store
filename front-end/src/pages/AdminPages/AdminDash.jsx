@@ -1,34 +1,33 @@
-import React from 'react';
-import './AdminDash.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import "./AdminDash.css";
 
-const AdminDash = () => {
-  const products = [
-    { id: 1, name: 'T-Shirt', price: '$20', img: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Jeans', price: '$40', img: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Jacket', price: '$60', img: 'https://via.placeholder.com/150' },
-    { id: 4, name: 'Shoes', price: '$50', img: 'https://via.placeholder.com/150' },
-  ];
-
+const AdminDashboard = () => {
   return (
-    <div className="dashboard-page">
-      <h2 className="dashboard-title">Admin Dashboard</h2>
-      <div className="product-list">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.img} alt={product.name} className="product-img" />
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">{product.price}</p>
-            <div className="admin-actions">
-              <button className="edit-btn">Edit</button>
-              <button className="delete-btn">Delete</button>
-            </div>
-          </div>
-        ))}
+ 
+      <div className="admin-dashboard">
+        {/* Sidebar Navigation */}
+        <div className="sidebar">
+          <h2>Admin Panel</h2>
+          <ul>
+            <li><Link to="/users">👥 List of Users</Link></li>
+            <li><Link to="/orders">📦 List of Orders</Link></li>
+            <li><Link to="/add-item">➕ Add New Item</Link></li>
+            <li><Link to="/add-admin">🛠 Add New Admin</Link></li>
+          </ul>
+        </div>
+
+        {/* Main Content */}
+        <div className="content">
+          <h2>Welcome to the Admin Dashboard</h2>
+          <p>Select an option from the sidebar to proceed.</p>
+        </div>
       </div>
-      <button className="add-product-btn">Add New Product</button>
-    </div>
+  
   );
 };
 
-export default AdminDash;
+export default AdminDashboard;
+
+
 
